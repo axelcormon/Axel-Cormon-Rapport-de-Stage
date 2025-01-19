@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport de stage - Axel CORMON</title>
+    <!-- Favicon -->
+    <link rel="icon" href="https://i.imgur.com/pxrQdmA.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/pxrQdmA.png">
+    <!-- Favicon pour les navigateurs modernes -->
+    <link rel="icon" href="https://i.imgur.com/pxrQdmA.png" sizes="16x16" />
+    <link rel="icon" href="https://i.imgur.com/pxrQdmA.png" sizes="32x32" />
+    <link rel="icon" href="https://i.imgur.com/pxrQdmA.png" sizes="48x48" />
+    <style>
+        /* Style général */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        /* Conteneur principal */
+        .slides-container {
+            width: calc(100% - 40px); /* Largeur : 100% moins une marge horizontale de 20px de chaque côté */
+            height: calc(100% - 40px); /* Hauteur : 100% moins une marge verticale de 20px de chaque côté */
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px; /* Coins arrondis */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Slides */
+        .slide {
+            display: none; /* Cache toutes les slides par défaut */
+            justify-content: center;
+            align-items: center;
+            width: 100%; /* Prend toute la largeur du conteneur */
+            height: 100%; /* Prend toute la hauteur du conteneur */
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        /* Barre de progression */
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 5px;
+            background-color: #000000;
+            transition: width 0.3s ease;
+            border-radius: 20px;
+        }
+
+        /* Flèches de navigation */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            z-index: 10;
+        }
+
+        .arrow:hover {
+            background-color: #ffffff;
+            color: #000000;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .arrow-left {
+            left: 10px;
+            transform: translateY(-50%);
+        }
+
+        .arrow-right {
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+        #slide-1 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-2 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-3 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-4 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-5 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-6 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-7 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-8 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-9 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-10 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-11 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-12 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-13 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-14 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-15 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+
+        #slide-16 img {
+            max-width: 1980px;   /* Empêche l'image de dépasser la largeur du conteneur */
+            max-height: 850px;  /* Empêche l'image de dépasser la hauteur du conteneur */
+            object-fit: contain; /* Assure que l'image reste proportionnelle sans être coupée */
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slides-container">
+        <!-- Barre de progression -->
+        <div id="progress-bar" class="progress-bar"></div>
+
+        <!-- Slides -->
+        <div id="slide-1" class="slide active">
+            <img src="https://i.imgur.com/eYPa29o.png" alt="Image de Présentation">
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-2" class="slide">
+            <img src="https://i.imgur.com/CsDklhJ.png" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-3" class="slide">
+            <img src="https://i.imgur.com/g6Etpkx.png" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-4" class="slide">
+            <img src="https://i.imgur.com/i7vKogn.png" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-5" class="slide">
+            <img src="https://i.imgur.com/BlSf0Y0.png" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-6" class="slide">
+            <img src="https://i.imgur.com/BndNYxg.png" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-7" class="slide">
+            <img src="https://i.imgur.com/yF5MOjA.png" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-8" class="slide">
+            <img src="https://i.imgur.com/RFaqu0A.png" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-9" class="slide">
+            <img src="https://i.imgur.com/JWkZQoc.png" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-10" class="slide">
+            <img src="https://i.imgur.com/lW2TnW8.png" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-11" class="slide">
+            <img src="https://i.imgur.com/qj1UaC0.jpeg" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-12" class="slide">
+            <img src="https://i.imgur.com/LHOFZsj.png" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-13" class="slide">
+            <img src="https://i.imgur.com/dAwrfTy.png" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-14" class="slide">
+            <img src="https://i.imgur.com/iZcSL9Z.jpeg" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-15" class="slide">
+            <img src="https://i.imgur.com/T0C6Gzn.png" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+            <button class="arrow arrow-right" onclick="nextSlide()">&#8250;</button>
+        </div>
+        <div id="slide-16" class="slide">
+            <img src="https://i.imgur.com/DebBZJZ.png" alt="Image de Présentation">
+            <button class="arrow arrow-left" onclick="previousSlide()">&#8249;</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1; // Numéro de la slide actuelle
+        const totalSlides = 16; // Nombre total de slides
+
+        // Afficher la slide en fonction du numéro
+        function showSlide(slideNumber) {
+            // Boucle sur toutes les slides
+            document.querySelectorAll('.slide').forEach((slide, index) => {
+                if (index + 1 === slideNumber) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            // Mettre à jour la barre de progression
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = `${(slideNumber / totalSlides) * 100}%`;
+        }
+
+        // Slide suivante
+        function nextSlide() {
+            currentSlide++;
+            if (currentSlide > totalSlides) {
+                currentSlide = 1; // Revenir à la première slide
+            }
+            showSlide(currentSlide);
+        }
+
+        // Slide précédente
+        function previousSlide() {
+            currentSlide--;
+            if (currentSlide < 1) {
+                currentSlide = totalSlides; // Aller à la dernière slide
+            }
+            showSlide(currentSlide);
+        }
+
+        // Initialisation
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
